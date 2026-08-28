@@ -5,11 +5,15 @@ function Landing() {
     const [category, setCategory] = useState('default');
     const [manufacturer, setManufacturer] = useState('');
     const [healthRating, setHealthRating] = useState('');
+    const [brand, setBrand] = useState('');
+    const [role, setRole] = useState('');
 
     const [nameError, setNameError] = useState('');
     const [categoryError, setCategoryError] = useState('');
     const [manufacturerError, setManufacturerError] = useState('');
     const [healthError, setHealthError] = useState('');
+    const [brandError, setBrandError] = useState('');
+    const [roleError, setRoleError] = useState('');
 
     const handleSubmit = () => {
         let isValid = true;
@@ -47,6 +51,21 @@ function Landing() {
         } else {
             setHealthError('');
         }
+
+        if (brand === '') {
+            setBrandError('Brand is required.');
+            isValid = false;
+        } else {
+            setBrandError('');
+        }
+
+        if (role === '') {
+            setRoleError('Role is required.');
+            isValid = false;
+        } else {
+            setRoleError('');
+        }
+        
 
         if (isValid) {
             alert('Gadget added successfully!');
@@ -111,6 +130,30 @@ function Landing() {
                 className="border border-gray-300 rounded p-2"
             />
             {healthError !== '' && <p className="text-red-500 text-sm">{healthError}</p>}
+
+            <label htmlFor="brand" className="font-medium">Brand:</label>
+            <input
+                type="text"
+                id="brand"
+                name="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                placeholder="Input Brand here"
+                className="border border-gray-300 rounded p-2"
+            />
+            {brandError !== '' && <p className="text-red-500 text-sm">{brandError}</p>}
+
+            <label htmlFor="role" className="font-medium">Role:</label>
+            <input
+                type="text"
+                id="role"
+                name="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                placeholder="Input Role here"
+                className="border border-gray-300 rounded p-2"
+            />
+            {roleError !== '' && <p className="text-red-500 text-sm">{roleError}</p>}
 
             <button
                 onClick={handleSubmit}
