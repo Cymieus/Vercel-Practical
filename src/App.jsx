@@ -1,14 +1,12 @@
-import './App.css'
-import { useState } from 'react'
-import LandingPage from './pages/landing.jsx'
-import SummaryPage from './pages/summary.jsx'
+import { useState } from 'react';
+
+import LandingPage from './pages/landing';
+import SummaryPage from './pages/summary';
+import './App.css';
 
 function App() {
   const [page, setPage] = useState('landing')
-  const pages = {
-    landing: <LandingPage onNavigate={setPage} />,
-    summary: <SummaryPage onNavigate={setPage} />
-  }
+
   const [gadgets, setGadgets] = useState([
     { id: 1, name: 'Example Gadget', category: 'Smartphone', manufacturer: 'Example Manufacturer', healthRating: 85, brand: 'Example Brand', role: 'Engineer/Tester' }
   ]);
@@ -16,6 +14,11 @@ function App() {
   const addGadget = (gadget) => {
     setGadgets([...gadgets, { ...gadget, id: gadgets.length + 1 }]);
     setPage('summary');
+  }
+
+  const pages = {
+    landing: <LandingPage onNavigate={setPage} addGadget={addGadget} />,
+    summary: <SummaryPage onNavigate={setPage} gadgets={gadgets} /> 
   }
 
   return (
@@ -30,5 +33,4 @@ function App() {
     </>
   )
 }
-
 export default App

@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import addGadget from '../App.jsx';
 
-function Landing() {
+function Landing( { addGadget } ) {
     const [gadgetName, setGadgetName] = useState('');
     const [category, setCategory] = useState('default');
     const [manufacturer, setManufacturer] = useState('');
@@ -186,7 +185,6 @@ function Landing() {
             {roleError !== '' && <p className="text-red-500 text-sm">{roleError}</p>}
             <button
                 onClick={handleSubmit}
-                redirectTo="/summary"
                 className="bg-green-600 text-white rounded px-4 py-2 mt-2 hover:bg-green-700"
             >
                 Add Gadget
