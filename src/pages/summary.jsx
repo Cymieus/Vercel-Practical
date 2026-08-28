@@ -1,5 +1,3 @@
-
-
 function summary() {
     return (
         <div className="summary-page max-w-xl mx-auto p-6 flex flex-col gap-4">

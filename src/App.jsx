@@ -15,6 +15,7 @@ function App() {
 
   const addGadget = (gadget) => {
     setGadgets([...gadgets, { ...gadget, id: gadgets.length + 1 }]);
+    setPage('summary');
   }
 
   return (

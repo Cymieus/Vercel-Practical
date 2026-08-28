@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import addGadget from '../App.jsx';
 
 function Landing() {
     const [gadgetName, setGadgetName] = useState('');
@@ -68,7 +69,22 @@ function Landing() {
         
 
         if (isValid) {
-            alert('Gadget added successfully!');
+            const newGadget = {
+                name: gadgetName,
+                category: category,
+                manufacturer: manufacturer,
+                healthRating: Number(healthRating),
+                brand: brand,
+                role: role
+            };
+            setGadgetName('');
+            setCategory('default');
+            setManufacturer('');
+            setHealthRating('');
+            setBrand('');
+            setRole('');
+            addGadget(newGadget);
+            console.log('Gadget added:', newGadget);
         }
     };
 
@@ -143,20 +159,34 @@ function Landing() {
             />
             {brandError !== '' && <p className="text-red-500 text-sm">{brandError}</p>}
 
-            <label htmlFor="role" className="font-medium">Role:</label>
-            <input
-                type="text"
-                id="role"
-                name="role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                placeholder="Input Role here"
-                className="border border-gray-300 rounded p-2"
-            />
-            {roleError !== '' && <p className="text-red-500 text-sm">{roleError}</p>}
+            <label className="font-medium">Role:</label>
+            <div className="flex gap-4">
+                <label className="flex items-center gap-1">
+                    <input
+                        type="radio"
+                        name="role"
+                        value="Engineer"
+                        checked={role === 'Engineer'}
+                        onChange={(e) => setRole(e.target.value)}
+                    />
+                    Engineer
+                </label>
 
+                <label className="flex items-center gap-1">
+                    <input
+                        type="radio"
+                        name="role"
+                        value="Tester"
+                        checked={role === 'Tester'}
+                        onChange={(e) => setRole(e.target.value)}
+                    />
+                    Tester
+                </label>
+            </div>
+            {roleError !== '' && <p className="text-red-500 text-sm">{roleError}</p>}
             <button
                 onClick={handleSubmit}
+                redirectTo="/summary"
                 className="bg-green-600 text-white rounded px-4 py-2 mt-2 hover:bg-green-700"
             >
                 Add Gadget
