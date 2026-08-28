@@ -1,6 +1,58 @@
-import setPage from '../App.jsx'
+import { useState } from 'react';
 
-function landing() {
+function Landing() {
+    const [gadgetName, setGadgetName] = useState('');
+    const [category, setCategory] = useState('default');
+    const [manufacturer, setManufacturer] = useState('');
+    const [healthRating, setHealthRating] = useState('');
+
+    const [nameError, setNameError] = useState('');
+    const [categoryError, setCategoryError] = useState('');
+    const [manufacturerError, setManufacturerError] = useState('');
+    const [healthError, setHealthError] = useState('');
+
+    const handleSubmit = () => {
+        let isValid = true;
+
+        if (gadgetName === '') {
+            setNameError('Gadget name is required.');
+            isValid = false;
+        } else if (gadgetName.length < 3) {
+            setNameError('Gadget name must be at least 3 characters.');
+            isValid = false;
+        } else {
+            setNameError('');
+        }
+
+        if (category === 'default') {
+            setCategoryError('Please select a category.');
+            isValid = false;
+        } else {
+            setCategoryError('');
+        }
+
+        if (manufacturer === '') {
+            setManufacturerError('Manufacturer is required.');
+            isValid = false;
+        } else {
+            setManufacturerError('');
+        }
+
+        if (healthRating === '') {
+            setHealthError('Health rating is required.');
+            isValid = false;
+        } else if (Number(healthRating) < 1 || Number(healthRating) > 100) {
+            setHealthError('Health rating must be between 1 and 100.');
+            isValid = false;
+        } else {
+            setHealthError('');
+        }
+
+        if (isValid) {
+            alert('Gadget added successfully!');
+        }
+    };
+
     return (
         <div className="max-w-xl mx-auto p-6 flex flex-col gap-4">
             <h1 className="text-2xl font-bold">Welcome to Tech Gadget & Inventory Hub</h1>
@@ -11,16 +63,19 @@ function landing() {
                 id="gadgetName"
                 name="gadgetName"
                 type="text"
-
+                value={gadgetName}
+                onChange={(e) => setGadgetName(e.target.value)}
                 placeholder="Input Gadget Name here"
                 className="border border-gray-300 rounded p-2"
             />
+            {nameError !== '' && <p className="text-red-500 text-sm">{nameError}</p>}
 
             <label htmlFor="category" className="font-medium">Category:</label>
             <select
                 id="category"
                 name="category"
-                defaultValue="default"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
                 className="border border-gray-300 rounded p-2"
             >
                 <option value="default" disabled>Select a category</option>
@@ -29,28 +84,36 @@ function landing() {
                 <option value="wearable">Wearable</option>
                 <option value="audio">Audio</option>
             </select>
+            {categoryError !== '' && <p className="text-red-500 text-sm">{categoryError}</p>}
 
-            <label htmlFor="price" className="font-medium">Manufacturer:</label>
+            <label htmlFor="manufacturer" className="font-medium">Manufacturer:</label>
             <input
                 type="text"
-                id="price"
-                name="price"
+                id="manufacturer"
+                name="manufacturer"
+                value={manufacturer}
+                onChange={(e) => setManufacturer(e.target.value)}
                 placeholder="Input Manufacturer here"
                 className="border border-gray-300 rounded p-2"
             />
+            {manufacturerError !== '' && <p className="text-red-500 text-sm">{manufacturerError}</p>}
 
-            <label htmlFor="quantity" className="font-medium">Health Rating:</label>
+            <label htmlFor="healthRating" className="font-medium">Health Rating:</label>
             <input
                 type="number"
-                id="quantity"
-                name="quantity"
+                id="healthRating"
+                name="healthRating"
+                value={healthRating}
+                onChange={(e) => setHealthRating(e.target.value)}
                 placeholder="Input Health Rating here"
                 min="1"
                 max="100"
                 className="border border-gray-300 rounded p-2"
             />
+            {healthError !== '' && <p className="text-red-500 text-sm">{healthError}</p>}
+
             <button
-                onClick={() => alert('Gadget added successfully!')}
+                onClick={handleSubmit}
                 className="bg-green-600 text-white rounded px-4 py-2 mt-2 hover:bg-green-700"
             >
                 Add Gadget
@@ -58,4 +121,4 @@ function landing() {
         </div>
     );
 }
-export default landing;
+export default Landing;
