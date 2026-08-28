@@ -7,14 +7,21 @@ function App() {
   const [page, setPage] = useState('landing')
   const pages = {
     landing: <LandingPage onNavigate={setPage} />,
-    summary: <SummaryPage />
+    summary: <SummaryPage onNavigate={setPage} />
+  }
+  const [gadgets, setGadgets] = useState([
+    { id: 1, name: 'Example Gadget', category: 'Smartphone', manufacturer: 'Example Manufacturer', healthRating: 85 }
+  ]);
+
+  const addGadget = (gadget) => {
+    setGadgets([...gadgets, { ...gadget, id: gadgets.length + 1 }]);
   }
 
   return (
     <>
       <nav className="navbar">
-        <button onClick={() => setPage('landing')}>Home</button>
-        <button onClick={() => setPage('summary')}>Summary</button>
+        <button onClick={() => setPage('landing')} className='text-2xl font-bold text-violet-800 px-4'>Home</button>
+        <button onClick={() => setPage('summary')} className='text-2xl font-bold text-violet-800'>Summary</button>
       </nav>
       <div className="page-container">
         {pages[page]}
